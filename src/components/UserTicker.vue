@@ -3,7 +3,7 @@
     <div class="ticker-wrapper">
       <div v-for="(item, index) in tickerItems" :key="index" class="ticker-item">
         <span>{{ item.text }}</span>
-        <span style="color: var(--success-color); font-weight: bold;">[研判生成完成]</span>
+        <span style="color: var(--success-color); font-weight: bold;">[生成成功]</span>
       </div>
     </div>
   </div>
@@ -13,10 +13,10 @@
 import { ref } from 'vue';
 
 const tickerItems = ref([
-  { text: '用户 136****4912 完成了降息周期下家庭资产配置理财金字塔规划' },
-  { text: '用户 178****8209 完成了新能源汽车产业链财报与竞争壁垒拆解' },
-  { text: '用户 181****0193 完成了高股息红利策略防守反击方案分析' },
-  { text: '用户 133****5520 解读了央行最新货币政策对房贷与债市影响' },
-  { text: '用户 159****9918 生成了通俗商业故事：为什么雪糕刺客消失了' },
+  { text: '用户 135****4829 成功生成了文案' },
+  { text: '用户 173****9238 成功合成了图像' },
+  { text: '用户 189****1102 成功解析了数据' },
+  { text: '用户 130****8739 成功翻译了内容' },
+  { text: '用户 152****2394 成功生成了朋友圈文案' },
 ]);
 </script>

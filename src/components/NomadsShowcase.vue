@@ -2,10 +2,10 @@
   <section class="nomads-showcase-section">
     <div class="showcase-header">
       <div class="header-left">
-        <h2 class="showcase-title">财经研判与投资理财实战模板库</h2>
-        <p class="showcase-subtitle">精选宏观解读、财报拆解与家庭资产配置，点击“一键套用”生成专业分析</p>
+        <h2 class="showcase-title">实战案例与模板库 (Nomads Showcase)</h2>
+        <p class="showcase-subtitle">精选高频实战场景，点击“一键套用”快速生成高质量结果</p>
       </div>
-      <span class="showcase-badge">已收录 {{ showcaseItems.length }} 个财经研判模板</span>
+      <span class="showcase-badge">已收录 {{ showcaseItems.length }} 个实战模板</span>
     </div>
 
     <div class="showcase-grid">
@@ -16,7 +16,7 @@
       >
         <div class="card-header">
           <span class="scenario-tag">{{ item.tag }}</span>
-          <span class="usage-count">{{ item.usageCount }} 次研判</span>
+          <span class="usage-count">{{ item.usageCount }} 次应用</span>
         </div>
 
         <div class="card-content">
@@ -41,8 +41,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+const props = defineProps<{
+  appTitle?: string;
+  isImage?: boolean;
+}>();
+
 const emit = defineEmits<{
-  (e: 'apply-template', payload: { prompt: string; analysisType?: string; riskPreference?: string }): void;
+  (e: 'apply-template', payload: { prompt: string; style?: string }): void;
 }>();
 
 export interface ShowcaseItem {
@@ -50,73 +55,105 @@ export interface ShowcaseItem {
   tag: string;
   title: string;
   prompt: string;
-  analysisType?: string;
-  riskPreference?: string;
+  style?: string;
   usageCount: string;
 }
 
-const showcaseItems = computed<ShowcaseItem[]>(() => [
-  {
-    id: 'caijing-1',
-    tag: '宏观资产',
-    title: '降息周期下 50 万家庭理财金字塔配置',
-    prompt: '分析在低利率与降息宏观环境下，家庭拥有 50 万可投资资金，如何按照“流动性/安全边际/长期增值”建构理财金字塔。',
-    analysisType: '个人与家庭资产配置理财',
-    riskPreference: '保守稳健型',
-    usageCount: '58.9k'
-  },
-  {
-    id: 'caijing-2',
-    tag: '赛道财报',
-    title: '新能源汽车龙头财报与盈利壁垒拆解',
-    prompt: '从营收增速、毛利率、自由现金流与研发投入四个视角，深入剖析新能源汽车龙头企业的商业护城河与潜在估值压力。',
-    analysisType: '行业赛道与财报商业拆解',
-    riskPreference: '平衡收益型',
-    usageCount: '49.2k'
-  },
-  {
-    id: 'caijing-3',
-    tag: '红利策略',
-    title: '高股息资产 (银行/煤炭/电力) 避坑风控',
-    prompt: '评估高股息红利策略的防守价值，分析“股息率陷阱”形成原因（如分红不可持续或基本面恶化）及风控指标体系。',
-    analysisType: '行业赛道与财报商业拆解',
-    riskPreference: '保守稳健型',
-    usageCount: '41.6k'
-  },
-  {
-    id: 'caijing-4',
-    tag: '商业模式',
-    title: '即时零售颠覆传统便利店的商业逻辑',
-    prompt: '从履约成本、SKU 丰富度及前置仓坪效角度，拆解美团/京东即时零售对传统线下零售的商业重构。',
-    analysisType: '自媒体爆款财经科普文案',
-    riskPreference: '平衡收益型',
-    usageCount: '35.4k'
-  },
-  {
-    id: 'caijing-5',
-    tag: '宏观政策',
-    title: '央行降准与货币政策对债市股市传导',
-    prompt: '解读央行最新降准与降息信号，分析资金面充裕对国债收益率曲线、银行净息差及权益市场的传导链条。',
-    analysisType: '宏观经济与政策趋势解读',
-    riskPreference: '平衡收益型',
-    usageCount: '38.1k'
-  },
-  {
-    id: 'caijing-6',
-    tag: '财商科普',
-    title: '普通人如何辨别 P2P 与高息非法集资陷阱',
-    prompt: '用通俗生动的商业比喻，向小白用户揭秘资金盘与庞氏骗局的特征，总结“保本高收益必然是诈骗”的避坑铁律。',
-    analysisType: '自媒体爆款财经科普文案',
-    riskPreference: '保守稳健型',
-    usageCount: '52.7k'
+// 模拟实战案例数据库（支持根据文本/图像类及应用主题切换）
+const showcaseItems = computed<ShowcaseItem[]>(() => {
+  if (props.isImage) {
+    return [
+      {
+        id: 'img-1',
+        tag: '写真肖像',
+        title: '商务精英形象照',
+        prompt: '高端写字楼背景，身穿深蓝色西装，眼神自信专注，赛博朋克光影效果',
+        style: '<photography>',
+        usageCount: '18.5k'
+      },
+      {
+        id: 'img-2',
+        tag: '概念插画',
+        title: '未来科幻城市海报',
+        prompt: '霓虹灯光的赛博朋克立体城市，飞行汽车，高品质概念插画，8k分辨率',
+        style: '<illustration>',
+        usageCount: '24.1k'
+      },
+      {
+        id: 'img-3',
+        tag: '二次元动漫',
+        title: '日系国潮动漫角色',
+        prompt: '穿着现代汉服的国风少年，手持纸伞，水彩漫感，唯美光感与柔光滤镜',
+        style: '<anime>',
+        usageCount: '15.9k'
+      },
+      {
+        id: 'img-4',
+        tag: '水彩艺术',
+        title: '治愈系自然风景画',
+        prompt: '晨雾中的森林湖泊，阳光穿透树林，水彩渐变质感，温馨治愈风格',
+        style: '<watercolor>',
+        usageCount: '12.3k'
+      }
+    ];
+  } else {
+    return [
+      {
+        id: 'text-1',
+        tag: '职场总结',
+        title: '周报 OKR 成果提炼',
+        prompt: '本周完成了核心模块优化与线上异常排查，请帮我梳理为具备量化指标的 OKR 汇报文案',
+        style: '专业干练，结果导向',
+        usageCount: '32.8k'
+      },
+      {
+        id: 'text-2',
+        tag: '高情商沟通',
+        title: '拒绝不合理加班话术',
+        prompt: '领导在周末突然布置非紧急任务，如何高情商、委婉且有理有据地推迟到工作日处理？',
+        style: '高情商，委婉，有情调',
+        usageCount: '28.4k'
+      },
+      {
+        id: 'text-3',
+        tag: '短视频文案',
+        title: '知识干货吸睛开头',
+        prompt: '准备制作一条关于高效学习法的短视频，设计 3 个能在前 3 秒留住用户的爆款口播开头',
+        style: '专业干练，结果导向',
+        usageCount: '45.1k'
+      },
+      {
+        id: 'text-4',
+        tag: '商务公文',
+        title: '跨部门协同申请函',
+        prompt: '因项目上线需要研发部门配合联调，撰写一份正式、严谨且明确时间节点的协同申请书',
+        style: '专业干练，结果导向',
+        usageCount: '19.7k'
+      },
+      {
+        id: 'text-5',
+        tag: '小红书种草',
+        title: '实战干货笔记排版',
+        prompt: '分享 5 个提升日常工作效率的文字工具，语言亲切，搭配吸引人的标题与 Emoji 排版',
+        style: '高情商，委婉，有情调',
+        usageCount: '36.2k'
+      },
+      {
+        id: 'text-6',
+        tag: '学术润色',
+        title: '论文摘要与结论重构',
+        prompt: '将以下粗糙的研究结论重写为学术规范、逻辑严密且无语法语病的论文摘要总结',
+        style: '专业干练，结果导向',
+        usageCount: '22.0k'
+      }
+    ];
   }
-]);
+});
 
 function applyTemplate(item: ShowcaseItem) {
   emit('apply-template', {
     prompt: item.prompt,
-    analysisType: item.analysisType,
-    riskPreference: item.riskPreference
+    style: item.style
   });
 }
 </script>
